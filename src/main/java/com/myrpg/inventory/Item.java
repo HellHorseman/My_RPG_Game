@@ -1,0 +1,26 @@
+package com.myrpg.inventory;
+
+public class Item {
+    private String name;
+    private String description;
+    private int value;
+
+    public Item(String name, String description, int value) {
+        this.name = name;
+        this.description = description;
+        this.value = value;
+    }
+
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public int getValue() { return value; }
+
+    public void use() {
+        System.out.println("Use item: " + name);
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + description + " (" + value + " gold)";
+    }
+}
