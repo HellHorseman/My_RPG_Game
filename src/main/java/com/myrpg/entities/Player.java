@@ -2,6 +2,8 @@ package com.myrpg.entities;
 
 import com.myrpg.inventory.Inventory;
 import com.myrpg.inventory.Item;
+import com.myrpg.quests.QuestManager;
+import com.myrpg.world.GameMap;
 
 public class Player {
     private String name;
@@ -12,14 +14,18 @@ public class Player {
     private int mana;
     private int maxMana;
     private Inventory inventory;
+    private QuestManager questManager;
 
     private float x, y;
+
+    private GameMap currentMap;
 
     public Player(String name, String characterClass) {
         this.name = name;
         this.characterClass = characterClass;
         this.level = 1;
         this.inventory = new Inventory(20);
+        this.questManager = new QuestManager();
 
         initializeClassStats();
 
@@ -90,6 +96,64 @@ public class Player {
     public float getX() { return x; }
     public float getY() { return y; }
 
+    public void setCurrentMap(GameMap map) {
+        this.currentMap = map;
+    }
+
+    public boolean move(float deltaX, float deltaY) {
+        if (currentMap == null) {
+            x += deltaX;
+            y += deltaY;
+            return true;
+        }
+
+        float newX = x + deltaX;
+        float newY = y + deltaY;
+
+        boolean canMove = true;
+
+        if (!currentMap.isWalkable(newX, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX, newY)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY)) canMove = false;
+
+        if (canMove) {
+            x = newX;
+            y = newY;
+            return true;
+        }
+
+        newX = x + deltaX;
+        newY = y;
+        canMove = true;
+
+        if (!currentMap.isWalkable(newX, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX, newY)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY)) canMove = false;
+
+        if (canMove) {
+            x = newX;
+            return true;
+        }
+
+        newX = x;
+        newY = y + deltaY;
+        canMove = true;
+
+        if (!currentMap.isWalkable(newX, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY + 32)) canMove = false;
+        if (!currentMap.isWalkable(newX, newY)) canMove = false;
+        if (!currentMap.isWalkable(newX + 32, newY)) canMove = false;
+
+        if (canMove) {
+            y = newY;
+            return true;
+        }
+
+        return false;
+    }
+
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
@@ -128,5 +192,9 @@ public class Player {
         return name + " (" + characterClass + ") Lvl " + level +
                 " | HP: " + health + "/" + maxHealth +
                 " | MP: " + mana + "/" + maxMana;
+    }
+
+    public QuestManager getQuestManager() {
+        return questManager;
     }
 }
