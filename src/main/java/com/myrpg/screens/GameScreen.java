@@ -169,6 +169,12 @@ public class GameScreen implements Screen {
         font.getData().setScale(1.0f);
         font.draw(batch, "WASD: Move | I: Inventory | B: Battle | T: Talk | ESC: Menu",
                 10, 30);
+
+        if (player.getQuestManager().hasActiveQuests()) {
+            font.draw(batch, "Q: Quests (" +
+                            player.getQuestManager().getActiveQuests().size() + " active)",
+                    10, 60);
+        }
     }
 
     private void handleInput() {
@@ -229,6 +235,10 @@ public class GameScreen implements Screen {
             if (nearbyNPC != null) {
                 game.setScreen(new DialogueScreen(game, player, nearbyNPC.getNPC()));
             }
+        }
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.Q)) {
+            game.setScreen(new QuestScreen(game, player));
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {

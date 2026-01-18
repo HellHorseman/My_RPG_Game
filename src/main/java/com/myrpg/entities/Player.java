@@ -2,6 +2,7 @@ package com.myrpg.entities;
 
 import com.myrpg.inventory.Inventory;
 import com.myrpg.inventory.Item;
+import com.myrpg.quests.QuestManager;
 import com.myrpg.world.GameMap;
 
 public class Player {
@@ -13,6 +14,7 @@ public class Player {
     private int mana;
     private int maxMana;
     private Inventory inventory;
+    private QuestManager questManager;
 
     private float x, y;
 
@@ -23,6 +25,7 @@ public class Player {
         this.characterClass = characterClass;
         this.level = 1;
         this.inventory = new Inventory(20);
+        this.questManager = new QuestManager();
 
         initializeClassStats();
 
@@ -189,5 +192,9 @@ public class Player {
         return name + " (" + characterClass + ") Lvl " + level +
                 " | HP: " + health + "/" + maxHealth +
                 " | MP: " + mana + "/" + maxMana;
+    }
+
+    public QuestManager getQuestManager() {
+        return questManager;
     }
 }

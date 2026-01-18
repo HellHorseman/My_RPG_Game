@@ -144,6 +144,10 @@ public class CombatScreen implements Screen {
         combatEnded = true;
 
         if (playerWon) {
+            player.getQuestManager().updateQuest("Goblin Problem", 1);
+        }
+
+        if (playerWon) {
             int gold = enemy.getGoldReward();
             int exp = enemy.getExperienceReward();
 
