@@ -14,6 +14,7 @@ import com.myrpg.entities.NPC;
 import com.myrpg.entities.Player;
 import com.myrpg.world.Camera;
 import com.myrpg.world.GameMap;
+import com.myrpg.world.NPCManager;
 
 public class GameScreen implements Screen {
     private final Main game;
@@ -29,10 +30,16 @@ public class GameScreen implements Screen {
     private Texture waterTexture;
     private Texture forestTexture;
     private Texture playerTexture;
+    private Texture npcTexture;
+
+    private NPCManager npcManager;
 
     public GameScreen(Main game, Player player) {
         this.game = game;
         this.player = player;
+
+        npcManager = new NPCManager();
+        npcTexture = createColorTexture(0xFFFF00FF);
 
         map = new GameMap(40, 30);
         player.setCurrentMap(map);
@@ -138,6 +145,13 @@ public class GameScreen implements Screen {
                 }
             }
         }
+        drawNPCs();
+    }
+
+    private void drawNPCs() {
+        for (NPCManager.MapNPC mapNPC : npcManager.getNPCs()) {
+            batch.draw(npcTexture, mapNPC.getX(), mapNPC.getY(), 32, 32);
+        }
     }
 
     private void drawPlayer() {
@@ -206,6 +220,15 @@ public class GameScreen implements Screen {
             };
             NPC testNPC = new NPC("Old Man", dialogues);
             game.setScreen(new DialogueScreen(game, player, testNPC));
+        }
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.E)) {
+            NPCManager.MapNPC nearbyNPC = npcManager.getNPCAt(
+                    player.getX() + 16, player.getY() + 16, 50);
+
+            if (nearbyNPC != null) {
+                game.setScreen(new DialogueScreen(game, player, nearbyNPC.getNPC()));
+            }
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
