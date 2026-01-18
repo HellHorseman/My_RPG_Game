@@ -89,6 +89,10 @@ public class GameScreen implements Screen {
             player.getInventory().addGold(50);
         }
 
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.I)) {
+            game.setScreen(new InventoryScreen(game, player));
+        }
+
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
             System.out.println("Return to menu (stub)");
         }
