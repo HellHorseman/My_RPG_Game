@@ -13,8 +13,8 @@ public class CharacterCreationScreen implements Screen {
     private SpriteBatch batch;
     private BitmapFont font;
 
-    private String characterName = "Герой";
-    private String[] classes = {"Воин", "Лучник", "Маг", "Разбойник"};
+    private String characterName = "Hero";
+    private String[] classes = {"Warrior", "Archer", "Mage", "Thief"};
     private int selectedClass = 0;
 
     private float titleY = 600;
@@ -46,12 +46,12 @@ public class CharacterCreationScreen implements Screen {
         batch.begin();
 
         font.setColor(1, 1, 0, 1);
-        font.draw(batch, "СОЗДАНИЕ ПЕРСОНАЖА", 200, titleY);
+        font.draw(batch, "CHARACTER CREATION", 200, titleY);
 
         font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Имя: " + characterName, 100, nameY);
+        font.draw(batch, "Name: " + characterName, 100, nameY);
 
-        font.draw(batch, "Выберите класс:", 100, classesY);
+        font.draw(batch, "Choose class:", 100, classesY);
         for (int i = 0; i < classes.length; i++) {
             if (i == selectedClass) {
                 font.setColor(0, 1, 0, 1);
@@ -63,11 +63,11 @@ public class CharacterCreationScreen implements Screen {
 
         font.setColor(0.8f, 0.8f, 1, 1);
         font.getData().setScale(1.5f);
-        font.draw(batch, "Стрелки: выбор класса | Enter: подтвердить", 100, hintY);
-        font.draw(batch, "Escape: назад", 100, hintY - 40);
+        font.draw(batch, "Arrows: select class | Enter: confirm", 100, hintY);
+        font.draw(batch, "Escape: back to menu", 100, hintY - 40);
 
         font.setColor(0, 1, 0, 1);
-        font.draw(batch, "[ENTER] СОЗДАТЬ ПЕРСОНАЖА", 300, createButtonY);
+        font.draw(batch, "[ENTER] CREATE CHARACTER", 300, createButtonY);
 
         batch.end();
     }
@@ -100,7 +100,7 @@ public class CharacterCreationScreen implements Screen {
 
         game.setScreen(new GameScreen(game, player));
 
-        System.out.println("Персонаж создан! Здоровье: " + player.getHealth() + "/" + player.getMaxHealth());
+        System.out.println("Character is created! Health: " + player.getHealth() + "/" + player.getMaxHealth());
     }
 
     @Override

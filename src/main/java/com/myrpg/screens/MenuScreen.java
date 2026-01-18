@@ -36,12 +36,12 @@ public class MenuScreen implements Screen {
         font.draw(batch, "MY RPG GAME", 250, 550);
 
         font.setColor(0.8f, 0.8f, 1, 1);
-        font.draw(batch, "НОВАЯ ИГРА", 300, 400);
-        font.draw(batch, "ВЫХОД", 300, 300);
+        font.draw(batch, "NEW GAME", 300, 400);
+        font.draw(batch, "EXIT", 300, 300);
 
         font.setColor(1, 1, 1, 1);
         font.getData().setScale(1.5f);
-        font.draw(batch, "Нажмите ENTER для начала", 250, 100);
+        font.draw(batch, "Press ENTER to start", 250, 100);
 
         batch.end();
     }
