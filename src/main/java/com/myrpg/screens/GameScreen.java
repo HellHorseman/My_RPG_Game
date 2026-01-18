@@ -43,17 +43,17 @@ public class GameScreen implements Screen {
         font.setColor(1, 1, 1, 1);
         font.draw(batch, player.getStatus(), 50, 700);
 
-        font.draw(batch, "Золото: " + player.getInventory().getGold(), 50, 650);
-        font.draw(batch, "Инвентарь: " + player.getInventory().getUsedSlots() + "/20", 50, 600);
+        font.draw(batch, "Gold: " + player.getInventory().getGold(), 50, 650);
+        font.draw(batch, "Inventory: " + player.getInventory().getUsedSlots() + "/20", 50, 600);
 
-        font.draw(batch, "Позиция: (" + (int)player.getX() + ", " + (int)player.getY() + ")", 50, 550);
+        font.draw(batch, "Position: (" + (int)player.getX() + ", " + (int)player.getY() + ")", 50, 550);
 
         font.setColor(1, 0, 0, 1);
         font.draw(batch, "@", player.getX(), player.getY());
 
         font.setColor(0.8f, 0.8f, 1, 1);
         font.getData().setScale(1.5f);
-        font.draw(batch, "WASD: движение | I: инвентарь | ESC: меню", 50, 100);
+        font.draw(batch, "WASD: movement | I: inventory | ESC: menu", 50, 100);
 
         batch.end();
     }
@@ -90,7 +90,7 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            System.out.println("Возврат в меню (заглушка)");
+            System.out.println("Return to menu (ball)");
         }
     }
 
