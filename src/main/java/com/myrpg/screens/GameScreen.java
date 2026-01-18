@@ -90,7 +90,7 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            System.out.println("Return to menu (ball)");
+            System.out.println("Return to menu (stub)");
         }
     }
 

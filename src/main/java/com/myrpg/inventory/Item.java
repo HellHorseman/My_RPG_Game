@@ -16,11 +16,11 @@ public class Item {
     public int getValue() { return value; }
 
     public void use() {
-        System.out.println("Использован предмет: " + name);
+        System.out.println("Use item: " + name);
     }
 
     @Override
     public String toString() {
-        return name + " - " + description + " (" + value + " зол.)";
+        return name + " - " + description + " (" + value + " gold)";
     }
 }

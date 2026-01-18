@@ -17,16 +17,16 @@ public class Inventory {
     public boolean addItem(Item item) {
         if (items.size() < capacity) {
             items.add(item);
-            System.out.println("Добавлен предмет: " + item.getName());
+            System.out.println("Got item: " + item.getName());
             return true;
         }
-        System.out.println("Инвентарь полон!");
+        System.out.println("Inventory is full!");
         return false;
     }
 
     public void removeItem(Item item) {
         items.remove(item);
-        System.out.println("Удален предмет: " + item.getName());
+        System.out.println("Item deleted: " + item.getName());
     }
 
     public Item getItem(int index) {
@@ -44,16 +44,16 @@ public class Inventory {
 
     public void addGold(int amount) {
         gold += amount;
-        System.out.println("Получено золото: +" + amount + " (всего: " + gold + ")");
+        System.out.println("Got gold: +" + amount + " (total: " + gold + ")");
     }
 
     public boolean spendGold(int amount) {
         if (gold >= amount) {
             gold -= amount;
-            System.out.println("Потрачено золото: -" + amount + " (осталось: " + gold + ")");
+            System.out.println("Spend gold: -" + amount + " (left: " + gold + ")");
             return true;
         }
-        System.out.println("Недостаточно золота! Нужно: " + amount + ", есть: " + gold);
+        System.out.println("Not enough gold! Need: " + amount + ", have: " + gold);
         return false;
     }
 
@@ -62,12 +62,12 @@ public class Inventory {
     public int getFreeSlots() { return capacity - items.size(); }
 
     public void printInventory() {
-        System.out.println("=== ИНВЕНТАРЬ ===");
-        System.out.println("Золото: " + gold);
-        System.out.println("Слоты: " + getUsedSlots() + "/" + capacity);
+        System.out.println("=== INVENTORY ===");
+        System.out.println("Gold: " + gold);
+        System.out.println("Slots: " + getUsedSlots() + "/" + capacity);
 
         if (items.isEmpty()) {
-            System.out.println("Инвентарь пуст");
+            System.out.println("Inventory is empty");
         } else {
             for (int i = 0; i < items.size(); i++) {
                 System.out.println((i + 1) + ". " + items.get(i));
