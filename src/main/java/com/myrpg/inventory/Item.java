@@ -15,8 +15,12 @@ public class Item {
     public String getDescription() { return description; }
     public int getValue() { return value; }
 
+    public void use() {
+        System.out.println("Использован предмет: " + name);
+    }
+
     @Override
     public String toString() {
-        return name + " (" + value + " золота)";
+        return name + " - " + description + " (" + value + " зол.)";
     }
 }
