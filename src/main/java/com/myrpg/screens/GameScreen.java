@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.myrpg.Main;
+import com.myrpg.entities.Enemy;
 import com.myrpg.entities.Player;
 
 public class GameScreen implements Screen {
@@ -91,6 +92,11 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.I)) {
             game.setScreen(new InventoryScreen(game, player));
+        }
+
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.B)) {
+            Enemy testEnemy = new Enemy("Goblin", 50, 8, 25, 10);
+            game.setScreen(new CombatScreen(game, player, testEnemy));
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
