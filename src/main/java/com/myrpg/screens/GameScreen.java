@@ -17,6 +17,8 @@ import com.myrpg.world.Camera;
 import com.myrpg.world.GameMap;
 import com.myrpg.world.NPCManager;
 
+import com.badlogic.gdx.utils.Array;
+
 public class GameScreen implements Screen {
     private final Main game;
     private Player player;
@@ -31,7 +33,9 @@ public class GameScreen implements Screen {
     private Texture waterTexture;
     private Texture forestTexture;
     private Texture playerTexture;
+    private Texture enemyTexture;
     private Texture npcTexture;
+    private Array<Enemy> enemies;
 
     private NPCManager npcManager;
 
@@ -41,6 +45,11 @@ public class GameScreen implements Screen {
 
         npcManager = new NPCManager();
         npcTexture = createColorTexture(0xFFFF00FF);
+
+        enemies = new Array<Enemy>();
+
+        enemies.add(new Enemy("Goblin", 300, 200, 50, 8, 25, 10));
+        enemies.add(new Enemy("Orc", 400, 300, 80, 12, 35, 15));
 
         map = new GameMap(40, 30);
         player.setCurrentMap(map);
@@ -72,6 +81,7 @@ public class GameScreen implements Screen {
         waterTexture = createColorTexture(0x0000FFFF);
         forestTexture = createColorTexture(0x008800FF);
         playerTexture = createColorTexture(0xFF0000FF);
+        enemyTexture = createColorTexture(0xFF0000FF);
     }
 
     private Texture createColorTexture(int color) {
@@ -95,7 +105,9 @@ public class GameScreen implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
         drawMap();
+        drawEnemies();
         drawPlayer();
 
         font.setColor(1, 1, 1, 1);
@@ -104,7 +116,6 @@ public class GameScreen implements Screen {
         font.draw(batch, "Inventory: " + player.getInventory().getUsedSlots() + "/20", 50, 600);
         font.draw(batch, "Position: (" + (int)player.getX() + ", " + (int)player.getY() + ")", 50, 550);
 
-        font.setColor(1, 0, 0, 1);
         font.draw(batch, "@", player.getX(), player.getY());
 
         font.setColor(0.8f, 0.8f, 1, 1);
@@ -152,6 +163,12 @@ public class GameScreen implements Screen {
     private void drawNPCs() {
         for (NPCManager.MapNPC mapNPC : npcManager.getNPCs()) {
             batch.draw(npcTexture, mapNPC.getX(), mapNPC.getY(), 32, 32);
+        }
+    }
+
+    private void drawEnemies() {
+        for (Enemy enemy : enemies) {
+            batch.draw(enemyTexture, enemy.getX(), enemy.getY(), 32, 32);
         }
     }
 
@@ -214,7 +231,7 @@ public class GameScreen implements Screen {
         }
 
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.B)) {
-            Enemy testEnemy = new Enemy("Goblin", 50, 8, 25, 10);
+            Enemy testEnemy = new Enemy("Goblin", 300, 200,50, 8, 25, 10);
             game.setScreen(new CombatScreen(game, player, testEnemy));
         }
 

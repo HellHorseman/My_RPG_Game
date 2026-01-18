@@ -8,8 +8,12 @@ public class Enemy {
     private int experienceReward;
     private int goldReward;
 
-    public Enemy(String name, int maxHealth, int damage, int expReward, int goldReward) {
+    private float x, y;
+
+    public Enemy(String name, float x, float y, int maxHealth, int damage, int expReward, int goldReward) {
         this.name = name;
+        this.x = x;
+        this.y = y;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.damage = damage;
@@ -23,6 +27,8 @@ public class Enemy {
     public int getDamage() { return damage; }
     public int getExperienceReward() { return experienceReward; }
     public int getGoldReward() { return goldReward; }
+    public float getX() {return x;}
+    public float getY() {return y;}
 
     public void takeDamage(int damage) {
         health -= damage;
