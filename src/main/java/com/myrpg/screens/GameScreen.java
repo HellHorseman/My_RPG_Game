@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -74,14 +75,13 @@ public class GameScreen implements Screen {
     }
 
     private Texture createColorTexture(int color) {
-        Texture texture = new Texture(32, 32, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888);
-        texture.getTextureData().prepare();
-
-        var pixmap = texture.getTextureData().consumePixmap();
+        Pixmap pixmap = new Pixmap(32, 32, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
         pixmap.fill();
 
-        texture.getTextureData().disposePixmap();
+        Texture texture = new Texture(pixmap);
+        pixmap.dispose();
+
         return texture;
     }
 
@@ -97,14 +97,11 @@ public class GameScreen implements Screen {
         batch.begin();
         drawMap();
         drawPlayer();
-        batch.end();
 
         font.setColor(1, 1, 1, 1);
         font.draw(batch, player.getStatus(), 50, 700);
-
         font.draw(batch, "Gold: " + player.getInventory().getGold(), 50, 650);
         font.draw(batch, "Inventory: " + player.getInventory().getUsedSlots() + "/20", 50, 600);
-
         font.draw(batch, "Position: (" + (int)player.getX() + ", " + (int)player.getY() + ")", 50, 550);
 
         font.setColor(1, 0, 0, 1);
@@ -114,11 +111,15 @@ public class GameScreen implements Screen {
         font.getData().setScale(1.5f);
         font.draw(batch, "WASD: movement | I: inventory | ESC: menu", 50, 100);
 
+        batch.end();
+
         batch.setProjectionMatrix(batch.getProjectionMatrix().setToOrtho2D(0, 0,
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         batch.begin();
         drawUI();
         batch.end();
+
+        font.getData().setScale(1.0f);
     }
 
     private void drawMap() {
